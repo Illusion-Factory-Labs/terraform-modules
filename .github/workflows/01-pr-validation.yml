@@ -1,7 +1,7 @@
 name: Open PR to Develop
 
 on:
-  pull_request:
+  push:
     branches:
       - feature/*
     
