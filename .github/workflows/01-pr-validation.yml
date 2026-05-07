@@ -1,10 +1,10 @@
-name: PR Validation
+name: Open PR to Develop
 
 on:
   pull_request:
     branches:
       - feature/*
-  
+    
 jobs:
   terraform-plan:
     name: Terraform Plan
@@ -17,12 +17,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
-
-      - name: Upload Terraform Plan
-        uses: actions/upload-artifact@v2
-        with:
-          name: tfplan
+        run: |
+          pwd  
+          ls -la
