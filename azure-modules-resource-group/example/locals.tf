@@ -1,22 +1,26 @@
 locals {
+  location = "brazilsouth"
+  tags = {
+        type = "rg"
+        purpose = "exampleForTerraformModules"
+      }
+
   resource_groups = {
     "rg1" = {
       name       = "rg-example-dev"
-      location   = "brazilsouth"
+      location   = local.location
       managed_by = "tiagobaeta@microsoft.com"
-      tags = {
+      tags = merge(local.tags, {
         environment = "dev"
-        owner       = "tiagobaeta@microsoft.com"
-      }
+      })
     },
     "rg2" = {
       name       = "rg-example-prod"
-      location   = "brazilsouth"
+      location   = local.location
       managed_by = "tiagobaeta@microsoft.com"
-      tags = {
+      tags = merge(local.tags, {
         environment = "prod"
-        owner       = "tiagobaeta@microsoft.com"
-      }
+      })
     }
   }
 }
