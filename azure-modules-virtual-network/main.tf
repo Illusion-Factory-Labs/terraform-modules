@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "vnet" {
-  for_each = var.virtual_networks
+  for_each = var.virtual_networks != null ? var.virtual_networks : {}
 
   name                = each.value.name
   resource_group_name = each.value.resource_group_name
@@ -81,5 +81,27 @@ resource "azurerm_subnet" "snet" {
   service_endpoints                             = each.value.service_endpoints
   service_endpoint_policy_ids                   = each.value.service_endpoint_policy_ids
 
-  depends_on = [ azurerm_virtual_network.vnet ]
+  depends_on = [azurerm_virtual_network.vnet]
+}
+
+resource "azurerm_virtual_network_peering" "vnet_peering" {
+    for_each = var.virtual_network_peerings
+
+    name                      = each.value.name
+    virtual_network_name      = each.value.virtual_network_name
+    remote_virtual_network_id = each.value.remote_virtual_network_id
+    resource_group_name       = each.value.resource_group_name
+
+    # Optional
+    allow_virtual_network_access           = each.value.allow_virtual_network_access
+    allow_forwarded_traffic                = each.value.allow_forwarded_traffic
+    allow_gateway_transit                  = each.value.allow_gateway_transit
+    local_subnet_names                     = each.value.local_subnet_names
+    only_ipv6_peering_enabled              = each.value.only_ipv6_peering_enabled
+    peer_complete_virtual_networks_enabled = each.value.peer_complete_virtual_networks_enabled
+    remote_subnet_names                    = each.value.remote_subnet_names
+    use_remote_gateways                    = each.value.use_remote_gateways
+    triggers                               = each.value.triggers
+
+    depends_on = [ azurerm_subnet.snet ]
 }
