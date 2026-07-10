@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: api-sa
-  namespace: demo
-  annotations:
-    azure.workload.identity/client-id: "e10e120f-d060-4324-b250-ce923c2f47cd"
