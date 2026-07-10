@@ -30,23 +30,23 @@ module "virtual_network_peering" {
   depends_on = [module.virtual_network]
 }
 
-module "private_dns_zone" {
-  source = "../../terraform-modules-azure/private-dns/private-dns-zone"
+# module "private_dns_zone" {
+#   source = "../../terraform-modules-azure/private-dns/private-dns-zone"
 
-  private_dns_zones = local.private_dns_zones
-}
+#   private_dns_zones = local.private_dns_zones
+# }
 
-module "private_dns_zone_virtual_network_link" {
-  source = "../../terraform-modules-azure/private-dns/private-dns-zone-link"
+# module "private_dns_zone_virtual_network_link" {
+#   source = "../../terraform-modules-azure/private-dns/private-dns-zone-link"
 
-  private_dns_zone_virtual_network_links = merge(
-    local.private_dns_zone_links_vnet_hub,
-    local.private_dns_zone_links_vnet_spoke_aks,
-    local.private_dns_zone_links_vnet_spoke_data
-  )
+#   private_dns_zone_virtual_network_links = merge(
+#     local.private_dns_zone_links_vnet_hub,
+#     local.private_dns_zone_links_vnet_spoke_aks,
+#     local.private_dns_zone_links_vnet_spoke_data
+#   )
 
-  depends_on = [module.private_dns_zone]
-}
+#   depends_on = [module.private_dns_zone]
+# }
 
 # module "container_registry" {
 #   source = "../../terraform-modules-azure/container/container-registry"
