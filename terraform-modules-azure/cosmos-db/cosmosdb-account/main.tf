@@ -1,0 +1,1 @@
+# Chamar o recurso com for_each
